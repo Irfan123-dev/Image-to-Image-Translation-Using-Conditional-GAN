@@ -1,0 +1,31 @@
+import torch
+import torchvision.transforms as T
+from torchvision.utils import save_image
+from PIL import Image
+import requests
+from io import BytesIO
+import os
+
+
+image_url = "add the image url as .jpg"
+response = requests.get(image_url)
+input_image = Image.open(BytesIO(response.content)).convert("RGB")
+
+# Transform
+transform = T.Compose([
+    T.Resize((256, 256)),
+    T.ToTensor(),
+    T.Normalize((0.5,), (0.5,))
+])
+
+image_tensor = transform(input_image).unsqueeze(0)  # Shape: [1, 3, 256, 256]
+
+
+output_tensor = image_tensor  # Replace this with model(image_tensor) if using actual pix2pix
+
+
+if not os.path.exists("output"):
+    os.makedirs("output")
+
+save_image((output_tensor + 1) / 2, "output/fake_image.png")  # De-normalize before saving
+print("Image saved as output/fake_image.png")
