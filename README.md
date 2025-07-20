@@ -1,0 +1,1 @@
+In this task, you'll implement an image-to-image translation model using a Conditional Generative Adversarial Network (cGAN), specifically the Pix2Pix architecture. This technique learns a mapping from input images (like sketches or edges) to output images (like photos or colored versions), and is widely used in style transfer and image synthesis.
